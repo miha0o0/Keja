@@ -1,0 +1,2716 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>CHARA WIKI</title>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+ --pink:#ff1493;
+ --pink2:#ff5bb5;
+ --bg:#090909;
+ --bg2:#111;
+ --bg3:#1b1b1b;
+ --line:#303030;
+ --text:#eee;
+ --sub:#999;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,"Noto Sans KR",sans-serif;
+}
+
+button,input,textarea,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+header{
+ height:62px;
+ background:#111;
+ border-bottom:1px solid #333;
+ display:flex;
+ align-items:center;
+ padding:0 24px;
+ position:sticky;
+ top:0;
+ z-index:1000;
+}
+
+.logo{
+ font-size:23px;
+ font-weight:900;
+ color:white;
+ cursor:pointer;
+ margin-right:30px;
+}
+
+.logo span{
+ color:var(--pink);
+}
+
+.search{
+ flex:1;
+ max-width:600px;
+ position:relative;
+}
+
+.search input{
+ width:100%;
+ background:#222;
+ border:1px solid #444;
+ padding:10px 45px 10px 15px;
+ color:white;
+ outline:none;
+}
+
+.search button{
+ position:absolute;
+ right:0;
+ top:0;
+ height:100%;
+ width:45px;
+ border:0;
+ background:var(--pink);
+ color:white;
+}
+
+.header-menu{
+ margin-left:auto;
+ display:flex;
+ gap:5px;
+}
+
+.header-menu button{
+ background:none;
+ border:0;
+ color:#bbb;
+ padding:10px;
+}
+
+.header-menu button:hover{
+ color:var(--pink);
+}
+
+/* layout */
+
+.layout{
+ max-width:1400px;
+ margin:auto;
+ display:grid;
+ grid-template-columns:210px minmax(0,1fr) 220px;
+ gap:20px;
+ padding:20px;
+}
+
+.side,
+.info-box{
+ background:var(--bg2);
+ border:1px solid var(--line);
+ height:max-content;
+}
+
+.side-title,
+.info-title{
+ padding:14px;
+ border-bottom:1px solid var(--line);
+ font-weight:bold;
+}
+
+.side button{
+ display:block;
+ width:100%;
+ text-align:left;
+ background:none;
+ color:var(--text);
+ border:0;
+ padding:12px 15px;
+}
+
+.side button:hover{
+ background:var(--bg3);
+ color:var(--pink);
+}
+
+.notice{
+ background:var(--bg2);
+ border:1px solid var(--line);
+ padding:13px 17px;
+ margin-bottom:18px;
+ color:var(--sub);
+ font-size:13px;
+}
+
+.article{
+ background:var(--bg2);
+ border:1px solid var(--line);
+ padding:30px;
+}
+
+.article-title{
+ margin:0;
+ font-size:34px;
+}
+
+.article-sub{
+ color:var(--sub);
+ font-size:13px;
+ margin-top:8px;
+}
+
+.tools{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin-top:20px;
+}
+
+.tool{
+ background:var(--bg3);
+ border:1px solid var(--line);
+ color:var(--text);
+ padding:8px 13px;
+}
+
+.tool:hover{
+ border-color:var(--pink);
+ color:var(--pink);
+}
+
+/* profile home */
+
+.profile-home{
+ margin-top:25px;
+ border:1px solid var(--line);
+ background:#0d0d0d;
+ overflow:hidden;
+}
+
+.banner{
+ height:260px;
+ position:relative;
+ background:
+ linear-gradient(135deg,#251020,#111);
+ background-size:cover;
+ background-position:center;
+}
+
+.banner-overlay{
+ position:absolute;
+ inset:0;
+ background:linear-gradient(
+   transparent 35%,
+   rgba(0,0,0,.9)
+ );
+}
+
+.profile-info{
+ position:relative;
+ margin-top:-75px;
+ padding:0 30px 30px;
+ z-index:2;
+}
+
+.avatar{
+ width:145px;
+ height:145px;
+ border-radius:50%;
+ border:5px solid #0d0d0d;
+ object-fit:cover;
+ background:#222;
+}
+
+.profile-name{
+ font-size:36px;
+ font-weight:900;
+ margin:12px 0 5px;
+}
+
+.profile-intro{
+ color:#aaa;
+ white-space:pre-wrap;
+ line-height:1.7;
+}
+
+.profile-music{
+ margin-top:20px;
+ max-width:500px;
+}
+
+.profile-music audio{
+ width:100%;
+}
+
+.profile-content{
+ padding:0 30px 35px;
+}
+
+/* sections */
+
+.section{
+ margin-top:35px;
+}
+
+.section-header{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ border-left:5px solid var(--pink);
+ padding-left:10px;
+}
+
+.section-header h2{
+ margin:0;
+ font-size:22px;
+}
+
+.text{
+ white-space:pre-wrap;
+ line-height:1.9;
+ margin-top:15px;
+}
+
+.profile-table{
+ width:100%;
+ border-collapse:collapse;
+ margin-top:15px;
+}
+
+.profile-table th,
+.profile-table td{
+ border:1px solid var(--line);
+ padding:9px;
+}
+
+.profile-table th{
+ width:30%;
+ color:var(--pink);
+ background:var(--bg3);
+ text-align:left;
+}
+
+/* gallery */
+
+.gallery{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-top:15px;
+}
+
+.gallery img{
+ width:100%;
+ aspect-ratio:1;
+ object-fit:cover;
+ cursor:pointer;
+}
+
+.gallery img:hover{
+ opacity:.8;
+}
+
+/* music */
+
+.music-box{
+ background:var(--bg3);
+ border:1px solid var(--line);
+ padding:20px;
+ margin-top:15px;
+}
+
+.music-box audio{
+ width:100%;
+}
+
+.song{
+ padding:10px;
+ border-bottom:1px solid var(--line);
+ color:#aaa;
+ cursor:pointer;
+}
+
+.song:hover{
+ color:var(--pink);
+}
+
+/* cards */
+
+.character-list{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+ margin-top:25px;
+}
+
+.character-card{
+ background:var(--bg2);
+ border:1px solid var(--line);
+ overflow:hidden;
+ cursor:pointer;
+}
+
+.character-card:hover{
+ border-color:var(--pink);
+}
+
+.character-card img,
+.card-none{
+ width:100%;
+ height:190px;
+ object-fit:cover;
+}
+
+.card-none{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#222;
+ color:#666;
+}
+
+.card-info{
+ padding:15px;
+}
+
+.card-name{
+ font-weight:bold;
+ font-size:18px;
+}
+
+.card-desc{
+ color:#888;
+ font-size:12px;
+ margin-top:5px;
+}
+
+/* modal */
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.8);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:5000;
+ padding:20px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modal-box{
+ width:min(850px,100%);
+ max-height:92vh;
+ overflow:auto;
+ background:var(--bg2);
+ border:1px solid var(--line);
+ padding:28px;
+}
+
+.modal-title{
+ font-size:25px;
+ font-weight:bold;
+ margin-bottom:20px;
+}
+
+.field{
+ margin-bottom:15px;
+}
+
+.field label{
+ display:block;
+ color:var(--pink);
+ font-size:13px;
+ margin-bottom:6px;
+}
+
+.field input,
+.field textarea,
+.field select{
+ width:100%;
+ background:var(--bg3);
+ border:1px solid var(--line);
+ color:white;
+ padding:11px;
+ outline:none;
+}
+
+.field textarea{
+ min-height:110px;
+ resize:vertical;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:14px;
+}
+
+.full{
+ grid-column:1/-1;
+}
+
+.modal-buttons{
+ display:flex;
+ gap:8px;
+ margin-top:20px;
+}
+
+.btn{
+ padding:11px 18px;
+ background:var(--bg3);
+ color:white;
+ border:1px solid var(--line);
+}
+
+.btn.primary{
+ background:var(--pink);
+ border-color:var(--pink);
+}
+
+/* dynamic fields */
+
+.dynamic-item{
+ border:1px solid var(--line);
+ background:#151515;
+ padding:15px;
+ margin-top:12px;
+}
+
+.dynamic-top{
+ display:flex;
+ gap:8px;
+ margin-bottom:10px;
+}
+
+.dynamic-top input{
+ flex:1;
+}
+
+.delete{
+ border:1px solid #633;
+ background:#211;
+ color:#ff7777;
+ padding:7px 12px;
+}
+
+.move{
+ border:1px solid var(--line);
+ background:#222;
+ color:#aaa;
+ padding:7px 10px;
+}
+
+/* editor image preview */
+
+.preview{
+ width:100%;
+ max-height:220px;
+ object-fit:cover;
+ margin-top:10px;
+ display:none;
+}
+
+/* right */
+
+.info-body{
+ padding:14px;
+ color:#999;
+ font-size:13px;
+ line-height:1.8;
+}
+
+.user-name{
+ color:var(--pink);
+ font-weight:bold;
+}
+
+footer{
+ margin-top:40px;
+ padding:35px;
+ text-align:center;
+ border-top:1px solid var(--line);
+ color:#666;
+ font-size:12px;
+}
+
+/* mobile */
+
+@media(max-width:1050px){
+ .layout{
+  grid-template-columns:180px minmax(0,1fr);
+ }
+ .right{
+  display:none;
+ }
+}
+
+@media(max-width:700px){
+ header{
+  padding:0 10px;
+ }
+ .logo{
+  font-size:18px;
+  margin-right:10px;
+ }
+ .header-menu button{
+  font-size:0;
+ }
+ .layout{
+  display:block;
+  padding:10px;
+ }
+ .left{
+  display:none;
+ }
+ .article{
+  padding:18px;
+ }
+ .character-list{
+  grid-template-columns:1fr 1fr;
+ }
+ .gallery{
+  grid-template-columns:1fr 1fr;
+ }
+ .grid{
+  grid-template-columns:1fr;
+ }
+ .full{
+  grid-column:auto;
+ }
+ .banner{
+  height:190px;
+ }
+ .profile-info{
+  padding:0 18px 20px;
+ }
+ .profile-content{
+  padding:0 18px 25px;
+ }
+ .avatar{
+  width:110px;
+  height:110px;
+ }
+ .profile-name{
+  font-size:28px;
+ }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+ <div class="logo" onclick="home()">
+  CHARA<span>WIKI</span>
+ </div>
+
+ <div class="search">
+
+  <input
+   id="searchInput"
+   placeholder="캐릭터 검색..."
+   onkeydown="if(event.key==='Enter')searchCharacter()"
+  >
+
+  <button onclick="searchCharacter()">⌕</button>
+
+ </div>
+
+ <div class="header-menu">
+
+  <button id="loginBtn" onclick="openModal('loginModal')">
+   로그인
+  </button>
+
+  <button id="registerBtn" onclick="openModal('registerModal')">
+   회원가입
+  </button>
+
+  <button id="mypageBtn" onclick="myPage()" style="display:none">
+   마이페이지
+  </button>
+
+  <button id="logoutBtn" onclick="logout()" style="display:none">
+   로그아웃
+  </button>
+
+ </div>
+
+</header>
+
+
+<div class="layout">
+
+ <aside class="left side">
+
+  <div class="side-title">
+   메뉴
+  </div>
+
+  <button onclick="home()">🏠 대문</button>
+
+  <button onclick="newCharacter()">＋ 캐릭터 만들기</button>
+
+  <button onclick="showCharacters()">📚 캐릭터 목록</button>
+
+  <button onclick="showFavorites()">★ 즐겨찾기</button>
+
+  <button onclick="showRecent()">🕘 최근 본 문서</button>
+
+ </aside>
+
+
+ <main>
+
+  <div class="notice">
+   <b>CHARA WIKI</b>
+   <span style="margin-left:10px">
+    자유롭게 꾸미는 캐릭터 설정 아카이브
+   </span>
+  </div>
+
+  <div id="content"></div>
+
+ </main>
+
+
+ <aside class="right">
+
+  <div class="info-box">
+
+   <div class="info-title">
+    현재 사용자
+   </div>
+
+   <div class="info-body" id="userInfo">
+    로그인하지 않았습니다.
+   </div>
+
+  </div>
+
+
+  <div class="info-box">
+
+   <div class="info-title">
+    문서 통계
+   </div>
+
+   <div class="info-body" id="statistics">
+    문서 0개
+   </div>
+
+  </div>
+
+
+  <div class="info-box">
+
+   <div class="info-title">
+    사용 방법
+   </div>
+
+   <div class="info-body">
+    캐릭터 문서의 항목은 자유롭게
+    추가하거나 삭제할 수 있습니다.
+    <br><br>
+    프로필은 개인 홈페이지처럼
+    배너와 음악을 설정할 수 있습니다.
+   </div>
+
+  </div>
+
+ </aside>
+
+</div>
+
+
+<footer>
+ CHARA WIKI · PERSONAL CHARACTER DATABASE
+</footer>
+
+
+<!-- LOGIN -->
+
+<div class="modal" id="loginModal">
+
+ <div class="modal-box" style="max-width:500px">
+
+  <div class="modal-title">
+   로그인
+  </div>
+
+  <div class="field">
+   <label>아이디</label>
+   <input id="loginId">
+  </div>
+
+  <div class="field">
+   <label>비밀번호</label>
+   <input id="loginPassword" type="password">
+  </div>
+
+  <div class="modal-buttons">
+
+   <button class="btn primary" onclick="login()">
+    로그인
+   </button>
+
+   <button class="btn" onclick="closeModal()">
+    닫기
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- REGISTER -->
+
+<div class="modal" id="registerModal">
+
+ <div class="modal-box" style="max-width:500px">
+
+  <div class="modal-title">
+   회원가입
+  </div>
+
+  <div class="field">
+   <label>아이디</label>
+   <input id="registerId">
+  </div>
+
+  <div class="field">
+   <label>비밀번호</label>
+   <input id="registerPassword" type="password">
+  </div>
+
+  <div class="modal-buttons">
+
+   <button class="btn primary" onclick="register()">
+    회원가입
+   </button>
+
+   <button class="btn" onclick="closeModal()">
+    닫기
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- CHARACTER EDITOR -->
+
+<div class="modal" id="editorModal">
+
+ <div class="modal-box">
+
+  <div class="modal-title">
+   캐릭터 프로필 편집
+  </div>
+
+
+  <!-- PERSONAL HOME -->
+
+  <h3 style="color:var(--pink)">
+   PERSONAL HOME
+  </h3>
+
+
+  <div class="field">
+
+   <label>프로필 배너</label>
+
+   <input
+    type="file"
+    id="bannerFile"
+    accept="image/*"
+   >
+
+   <img id="bannerPreview" class="preview">
+
+  </div>
+
+
+  <div class="field">
+
+   <label>프로필 사진</label>
+
+   <input
+    type="file"
+    id="avatarFile"
+    accept="image/*"
+   >
+
+   <img id="avatarPreview" class="preview">
+
+  </div>
+
+
+  <div class="field">
+
+   <label>프로필 소개</label>
+
+   <textarea
+    id="introInput"
+    placeholder="캐릭터 또는 본인의 소개를 적어주세요."
+   ></textarea>
+
+  </div>
+
+
+  <div class="field">
+
+   <label>프로필 음악</label>
+
+   <input
+    type="file"
+    id="profileMusic"
+    accept="audio/*"
+   >
+
+  </div>
+
+
+  <div class="field">
+
+   <label>
+    프로필 음악 자동재생
+   </label>
+
+   <select id="autoplayMusic">
+
+    <option value="false">
+     사용 안 함
+    </option>
+
+    <option value="true">
+     사용
+    </option>
+
+   </select>
+
+  </div>
+
+
+  <!-- BASIC -->
+
+  <h3 style="color:var(--pink)">
+   CHARACTER INFORMATION
+  </h3>
+
+  <div id="dynamicFields"></div>
+
+
+  <button
+   class="btn"
+   onclick="addField()"
+   style="margin-top:12px"
+  >
+   ＋ 항목 추가
+  </button>
+
+
+  <!-- GALLERY -->
+
+  <h3 style="color:var(--pink);margin-top:35px">
+   GALLERY
+  </h3>
+
+  <div class="field">
+
+   <input
+    type="file"
+    id="galleryFiles"
+    accept="image/*"
+    multiple
+   >
+
+  </div>
+
+
+  <div
+   id="galleryEditor"
+   style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"
+  ></div>
+
+
+  <!-- MUSIC -->
+
+  <h3 style="color:var(--pink);margin-top:35px">
+   MUSIC PLAYLIST
+  </h3>
+
+  <div class="field">
+
+   <input
+    type="file"
+    id="musicFiles"
+    accept="audio/*"
+    multiple
+   >
+
+  </div>
+
+
+  <div id="musicEditor"></div>
+
+
+  <div class="modal-buttons">
+
+   <button
+    class="btn primary"
+    onclick="saveCharacter()"
+   >
+    저장
+   </button>
+
+   <button
+    class="btn"
+    onclick="closeModal()"
+   >
+    취소
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+   DATABASE
+================================================== */
+
+let users =
+ JSON.parse(localStorage.getItem("cw_users") || "[]");
+
+let characters =
+ JSON.parse(localStorage.getItem("cw_characters") || "[]");
+
+let favorites =
+ JSON.parse(localStorage.getItem("cw_favorites") || "[]");
+
+let recent =
+ JSON.parse(localStorage.getItem("cw_recent") || "[]");
+
+let currentUser =
+ localStorage.getItem("cw_currentUser") || null;
+
+let editingId = null;
+
+
+/* ==================================================
+   SAVE
+================================================== */
+
+function saveDB(){
+
+ localStorage.setItem(
+  "cw_users",
+  JSON.stringify(users)
+ );
+
+ localStorage.setItem(
+  "cw_characters",
+  JSON.stringify(characters)
+ );
+
+ localStorage.setItem(
+  "cw_favorites",
+  JSON.stringify(favorites)
+ );
+
+ localStorage.setItem(
+  "cw_recent",
+  JSON.stringify(recent)
+ );
+
+}
+
+
+/* ==================================================
+   MODAL
+================================================== */
+
+function openModal(id){
+ document.getElementById(id).classList.add("show");
+}
+
+function closeModal(){
+ document
+  .querySelectorAll(".modal")
+  .forEach(x=>x.classList.remove("show"));
+}
+
+
+/* ==================================================
+   REGISTER
+================================================== */
+
+function register(){
+
+ const id =
+  document.getElementById("registerId")
+  .value.trim();
+
+ const password =
+  document.getElementById("registerPassword")
+  .value;
+
+ if(!id || !password){
+  alert("아이디와 비밀번호를 입력해주세요.");
+  return;
+ }
+
+ if(users.some(x=>x.id===id)){
+  alert("이미 존재하는 아이디입니다.");
+  return;
+ }
+
+ users.push({
+  id,
+  password
+ });
+
+ saveDB();
+
+ alert("회원가입이 완료되었습니다.");
+
+ closeModal();
+}
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+function login(){
+
+ const id =
+  document.getElementById("loginId")
+  .value.trim();
+
+ const password =
+  document.getElementById("loginPassword")
+  .value;
+
+ const user =
+  users.find(
+   x=>x.id===id && x.password===password
+  );
+
+ if(!user){
+  alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+  return;
+ }
+
+ currentUser=id;
+
+ localStorage.setItem(
+  "cw_currentUser",
+  id
+ );
+
+ closeModal();
+
+ updateUser();
+
+}
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+function logout(){
+
+ currentUser=null;
+
+ localStorage.removeItem(
+  "cw_currentUser"
+ );
+
+ updateUser();
+
+ home();
+
+}
+
+
+/* ==================================================
+   USER
+================================================== */
+
+function updateUser(){
+
+ const logged=!!currentUser;
+
+ document.getElementById("loginBtn")
+  .style.display=logged?"none":"block";
+
+ document.getElementById("registerBtn")
+  .style.display=logged?"none":"block";
+
+ document.getElementById("mypageBtn")
+  .style.display=logged?"block":"none";
+
+ document.getElementById("logoutBtn")
+  .style.display=logged?"block":"none";
+
+ document.getElementById("userInfo").innerHTML =
+  logged
+   ? `<span class="user-name">
+       ${esc(currentUser)}
+      </span> 님<br><br>
+      로그인 상태입니다.`
+   : "로그인하지 않았습니다.";
+
+}
+
+
+/* ==================================================
+   HOME
+================================================== */
+
+function home(){
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    CHARA WIKI
+   </h1>
+
+   <p style="color:#999">
+    나만의 캐릭터 세계관과 설정을 저장하는 공간
+   </p>
+
+   <div class="tools">
+
+    <button
+     class="tool"
+     onclick="newCharacter()"
+    >
+     ＋ 캐릭터 만들기
+    </button>
+
+    <button
+     class="tool"
+     onclick="showCharacters()"
+    >
+     캐릭터 목록
+    </button>
+
+   </div>
+
+   <div class="section">
+
+    <div class="section-header">
+     <h2>최근 캐릭터</h2>
+    </div>
+
+    <div
+     class="character-list"
+     id="homeList"
+    ></div>
+
+   </div>
+
+  </div>
+ `;
+
+ renderCards(
+  document.getElementById("homeList"),
+  characters.slice(-6).reverse()
+ );
+
+}
+
+
+/* ==================================================
+   CARDS
+================================================== */
+
+function renderCards(container,list){
+
+ if(!list.length){
+
+  container.innerHTML=
+   `<p style="color:#777">
+    등록된 캐릭터가 없습니다.
+   </p>`;
+
+  return;
+ }
+
+ container.innerHTML="";
+
+ list.forEach(c=>{
+
+  const card=document.createElement("div");
+
+  card.className="character-card";
+
+  card.innerHTML=
+
+   c.image
+   ?
+   `<img src="${c.image}">
+    <div class="card-info">
+     <div class="card-name">
+      ${esc(c.name)}
+     </div>
+     <div class="card-desc">
+      ${esc(c.intro||"")}
+     </div>
+    </div>`
+   :
+   `<div class="card-none">
+     NO IMAGE
+    </div>
+    <div class="card-info">
+     <div class="card-name">
+      ${esc(c.name)}
+     </div>
+     <div class="card-desc">
+      ${esc(c.intro||"")}
+     </div>
+    </div>`;
+
+  card.onclick=()=>openCharacter(c.id);
+
+  container.appendChild(card);
+
+ });
+
+}
+
+
+/* ==================================================
+   NEW
+================================================== */
+
+function newCharacter(){
+
+ if(!currentUser){
+
+  alert("로그인이 필요합니다.");
+  openModal("loginModal");
+  return;
+
+ }
+
+ editingId=null;
+
+ clearEditor();
+
+ openModal("editorModal");
+
+}
+
+
+/* ==================================================
+   CLEAR
+================================================== */
+
+function clearEditor(){
+
+ document
+  .querySelectorAll("#editorModal input,#editorModal textarea")
+  .forEach(x=>{
+   if(x.type!=="file")
+    x.value="";
+  });
+
+ document.getElementById("dynamicFields")
+  .innerHTML="";
+
+ document.getElementById("galleryEditor")
+  .innerHTML="";
+
+ document.getElementById("musicEditor")
+  .innerHTML="";
+
+ document.getElementById("autoplayMusic")
+  .value="false";
+
+}
+
+
+/* ==================================================
+   ADD DYNAMIC FIELD
+================================================== */
+
+function addField(data=null){
+
+ const wrapper =
+  document.createElement("div");
+
+ wrapper.className="dynamic-item";
+
+ const type =
+  data?.type || "text";
+
+ const title =
+  data?.title || "새 항목";
+
+ const value =
+  data?.value || "";
+
+ wrapper.innerHTML=`
+
+  <div class="dynamic-top">
+
+   <input
+    class="field-title"
+    value="${esc(title)}"
+    placeholder="항목 이름"
+   >
+
+   <select class="field-type">
+
+    <option value="text"
+     ${type==="text"?"selected":""}>
+     짧은 글
+    </option>
+
+    <option value="long"
+     ${type==="long"?"selected":""}>
+     긴 글
+    </option>
+
+   </select>
+
+   <button
+    class="move"
+    onclick="moveField(this,-1)"
+   >
+    ↑
+   </button>
+
+   <button
+    class="move"
+    onclick="moveField(this,1)"
+   >
+    ↓
+   </button>
+
+   <button
+    class="delete"
+    onclick="this.closest('.dynamic-item').remove()"
+   >
+    ×
+   </button>
+
+  </div>
+
+  <textarea class="field-value">${esc(value)}</textarea>
+
+ `;
+
+ document
+  .getElementById("dynamicFields")
+  .appendChild(wrapper);
+
+}
+
+
+/* ==================================================
+   MOVE FIELD
+================================================== */
+
+function moveField(button,direction){
+
+ const item =
+  button.closest(".dynamic-item");
+
+ const parent =
+  item.parentElement;
+
+ if(direction<0 && item.previousElementSibling){
+
+  parent.insertBefore(
+   item,
+   item.previousElementSibling
+  );
+
+ }
+
+ if(direction>0 && item.nextElementSibling){
+
+  parent.insertBefore(
+   item.nextElementSibling,
+   item
+  );
+
+ }
+
+}
+
+
+/* ==================================================
+   IMAGE UPLOAD PREVIEW
+================================================== */
+
+document
+ .getElementById("bannerFile")
+ .addEventListener("change",function(){
+
+  const file=this.files[0];
+
+  if(!file)return;
+
+  fileToData(file).then(src=>{
+
+   const img=
+    document.getElementById("bannerPreview");
+
+   img.src=src;
+   img.style.display="block";
+
+  });
+
+ });
+
+
+document
+ .getElementById("avatarFile")
+ .addEventListener("change",function(){
+
+  const file=this.files[0];
+
+  if(!file)return;
+
+  fileToData(file).then(src=>{
+
+   const img=
+    document.getElementById("avatarPreview");
+
+   img.src=src;
+   img.style.display="block";
+
+  });
+
+ });
+
+
+/* ==================================================
+   SAVE CHARACTER
+================================================== */
+
+async function saveCharacter(){
+
+ if(!currentUser)return;
+
+
+ const name =
+  document.getElementById("editName")?.value;
+
+
+ /*
+  기존 편집창을 열 때 기본적으로
+  이름을 dynamic field가 아닌 별도 입력으로
+  만들지 않았으므로 첫 번째 항목을
+  이름으로 사용하지 않도록 별도 처리.
+ */
+
+ let existing =
+  editingId
+   ? characters.find(x=>x.id===editingId)
+   : null;
+
+
+ const fields=[];
+
+ document
+  .querySelectorAll(".dynamic-item")
+  .forEach(item=>{
+
+   const title =
+    item.querySelector(".field-title").value.trim();
+
+   const type =
+    item.querySelector(".field-type").value;
+
+   const value =
+    item.querySelector(".field-value").value;
+
+   if(title){
+
+    fields.push({
+     title,
+     type,
+     value
+    });
+
+   }
+
+  });
+
+
+ /*
+  캐릭터 이름은
+  "이름"이라는 항목을 자동으로 찾아 사용.
+ */
+
+ let characterName="이름 없는 캐릭터";
+
+ const nameField =
+  fields.find(
+   x=>x.title==="이름"
+  );
+
+ if(nameField && nameField.value.trim()){
+
+  characterName=
+   nameField.value.trim();
+
+ }
+
+
+ /* profile */
+
+ let banner =
+  existing?.banner || "";
+
+ let image =
+  existing?.image || "";
+
+ let profileMusic =
+  existing?.profileMusic || "";
+
+ const bannerFile =
+  document.getElementById("bannerFile")
+  .files[0];
+
+ const avatarFile =
+  document.getElementById("avatarFile")
+  .files[0];
+
+ const musicFile =
+  document.getElementById("profileMusic")
+  .files[0];
+
+
+ if(bannerFile)
+  banner=await fileToData(bannerFile);
+
+ if(avatarFile)
+  image=await fileToData(avatarFile);
+
+ if(musicFile)
+  profileMusic=await fileToData(musicFile);
+
+
+ /* gallery */
+
+ let gallery =
+  existing?.gallery
+  ? [...existing.gallery]
+  : [];
+
+
+ const galleryFiles =
+  [...document.getElementById("galleryFiles").files];
+
+
+ for(const file of galleryFiles){
+
+  gallery.push(
+   await fileToData(file)
+  );
+
+ }
+
+
+ /* music */
+
+ let music =
+  existing?.music
+  ? [...existing.music]
+  : [];
+
+
+ const musicFiles =
+  [...document.getElementById("musicFiles").files];
+
+
+ for(const file of musicFiles){
+
+  music.push({
+
+   name:file.name,
+
+   data:
+    await fileToData(file)
+
+  });
+
+ }
+
+
+ const data={
+
+  id:
+   existing?.id ||
+   Date.now().toString(36)+
+   Math.random().toString(36).slice(2,8),
+
+  owner:currentUser,
+
+  name:characterName,
+
+  banner,
+
+  image,
+
+  intro:
+   document.getElementById("introInput").value,
+
+  profileMusic,
+
+  autoplay:
+   document.getElementById("autoplayMusic").value==="true",
+
+  fields,
+
+  gallery,
+
+  music,
+
+  created:
+   existing?.created ||
+   new Date().toLocaleString()
+
+ };
+
+
+ if(existing){
+
+  const index =
+   characters.findIndex(
+    x=>x.id===editingId
+   );
+
+  characters[index]=data;
+
+ }else{
+
+  characters.push(data);
+
+ }
+
+
+ saveDB();
+
+ closeModal();
+
+ alert("캐릭터 문서가 저장되었습니다.");
+
+ openCharacter(data.id);
+
+ updateStatistics();
+
+}
+
+
+/* ==================================================
+   FILE
+================================================== */
+
+function fileToData(file){
+
+ return new Promise(resolve=>{
+
+  const reader=new FileReader();
+
+  reader.onload=e=>
+   resolve(e.target.result);
+
+  reader.readAsDataURL(file);
+
+ });
+
+}
+
+
+/* ==================================================
+   OPEN CHARACTER
+================================================== */
+
+function openCharacter(id){
+
+ const c=
+  characters.find(x=>x.id===id);
+
+ if(!c)return;
+
+
+ recent =
+  recent.filter(x=>x!==id);
+
+ recent.unshift(id);
+
+ recent=recent.slice(0,20);
+
+ saveDB();
+
+
+ const url=
+  new URL(window.location.href);
+
+ url.searchParams.set(
+  "post",
+  id
+ );
+
+ history.pushState(
+  {},
+  "",
+  url
+ );
+
+
+ renderArticle(c);
+
+}
+
+
+/* ==================================================
+   ARTICLE
+================================================== */
+
+function renderArticle(c){
+
+ let fieldsHTML="";
+
+ if(c.fields?.length){
+
+  fieldsHTML=`
+
+   <div class="section">
+
+    <div class="section-header">
+     <h2>CHARACTER INFORMATION</h2>
+    </div>
+
+    <table class="profile-table">
+
+     ${c.fields.map(f=>`
+
+      <tr>
+
+       <th>
+        ${esc(f.title)}
+       </th>
+
+       <td style="white-space:pre-wrap">
+        ${esc(f.value)}
+       </td>
+
+      </tr>
+
+     `).join("")}
+
+    </table>
+
+   </div>
+
+  `;
+
+ }
+
+
+ let galleryHTML="";
+
+ if(c.gallery?.length){
+
+  galleryHTML=`
+
+   <div class="section">
+
+    <div class="section-header">
+     <h2>GALLERY</h2>
+    </div>
+
+    <div class="gallery">
+
+     ${c.gallery.map(img=>`
+      <img
+       src="${img}"
+       onclick="viewImage('${img}')"
+      >
+     `).join("")}
+
+    </div>
+
+   </div>
+
+  `;
+
+ }
+
+
+ let musicHTML="";
+
+ if(c.music?.length){
+
+  musicHTML=`
+
+   <div class="section">
+
+    <div class="section-header">
+     <h2>MUSIC</h2>
+    </div>
+
+    <div class="music-box">
+
+     <audio
+      id="wikiAudio"
+      controls
+     ></audio>
+
+     <div>
+
+      ${c.music.map((song,i)=>`
+
+       <div
+        class="song"
+        onclick="playMusic('${c.id}',${i})"
+       >
+        ${String(i+1).padStart(2,"0")}
+        ·
+        ${esc(song.name)}
+       </div>
+
+      `).join("")}
+
+     </div>
+
+    </div>
+
+   </div>
+
+  `;
+
+ }
+
+
+ const favorite=
+  favorites.includes(c.id);
+
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    ${esc(c.name)}
+   </h1>
+
+   <div class="article-sub">
+    작성일: ${esc(c.created)}
+   </div>
+
+
+   <div class="tools">
+
+    <button
+     class="tool"
+     onclick="editCharacter('${c.id}')"
+    >
+     ✎ 편집
+    </button>
+
+    <button
+     class="tool"
+     onclick="toggleFavorite('${c.id}')"
+    >
+     ${favorite?"★":"☆"} 즐겨찾기
+    </button>
+
+    <button
+     class="tool"
+     onclick="copyURL()"
+    >
+     🔗 링크
+    </button>
+
+    ${
+     c.owner===currentUser
+     ?
+     `<button
+       class="tool"
+       onclick="deleteCharacter('${c.id}')"
+      >
+       삭제
+      </button>`
+     :""
+    }
+
+   </div>
+
+
+   <!-- PERSONAL HOME -->
+
+   <div class="profile-home">
+
+    <div
+     class="banner"
+     style="
+      ${
+       c.banner
+       ? `background-image:url('${c.banner}')`
+       : ""
+      }
+     "
+    >
+
+     <div class="banner-overlay"></div>
+
+    </div>
+
+
+    <div class="profile-info">
+
+     ${
+      c.image
+      ?
+      `<img
+       class="avatar"
+       src="${c.image}"
+      >`
+      :
+      `<div
+       class="avatar"
+       style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#666
+       "
+      >
+       ?
+      </div>`
+     }
+
+
+     <div class="profile-name">
+      ${esc(c.name)}
+     </div>
+
+
+     <div class="profile-intro">
+      ${esc(c.intro||"")}
+     </div>
+
+
+     ${
+      c.profileMusic
+      ?
+      `<div class="profile-music">
+
+       <div
+        style="
+         color:#ff1493;
+         font-size:12px;
+         margin-bottom:7px
+        "
+       >
+        PROFILE MUSIC
+       </div>
+
+       <audio
+        controls
+        ${
+         c.autoplay
+         ? "autoplay"
+         : ""
+        }
+       >
+        <source
+         src="${c.profileMusic}"
+        >
+       </audio>
+
+      </div>`
+      :
+      ""
+     }
+
+    </div>
+
+
+    <div class="profile-content">
+
+     ${fieldsHTML}
+
+     ${galleryHTML}
+
+     ${musicHTML}
+
+    </div>
+
+   </div>
+
+  </div>
+
+ `;
+
+
+ /* autoplay */
+
+ if(c.profileMusic && c.autoplay){
+
+  const audio =
+   document.querySelector(
+    ".profile-music audio"
+   );
+
+  if(audio){
+
+   audio.play().catch(()=>{});
+
+  }
+
+ }
+
+}
+
+
+/* ==================================================
+   EDIT CHARACTER
+================================================== */
+
+function editCharacter(id){
+
+ const c=
+  characters.find(x=>x.id===id);
+
+ if(!c)return;
+
+ if(c.owner!==currentUser){
+
+  alert("본인이 만든 문서만 편집할 수 있습니다.");
+  return;
+
+ }
+
+ editingId=id;
+
+
+ clearEditor();
+
+
+ document.getElementById("introInput").value=
+  c.intro||"";
+
+ document.getElementById("autoplayMusic").value=
+  c.autoplay?"true":"false";
+
+
+ /* fields */
+
+ if(c.fields?.length){
+
+  c.fields.forEach(f=>
+   addField(f)
+  );
+
+ }
+
+
+ /* existing gallery */
+
+ const galleryEditor=
+  document.getElementById("galleryEditor");
+
+ galleryEditor.innerHTML="";
+
+
+ (c.gallery||[]).forEach((img,index)=>{
+
+  const wrapper=
+   document.createElement("div");
+
+  wrapper.style.position="relative";
+
+  wrapper.innerHTML=`
+
+   <img
+    src="${img}"
+    style="
+     width:100%;
+     aspect-ratio:1;
+     object-fit:cover
+    "
+   >
+
+   <button
+    class="delete"
+    style="
+     position:absolute;
+     top:3px;
+     right:3px
+    "
+    onclick="
+     removeGalleryImage(${index})
+    "
+   >
+    ×
+   </button>
+
+  `;
+
+  galleryEditor.appendChild(wrapper);
+
+ });
+
+
+ /* existing music */
+
+ renderMusicEditor(c);
+
+
+ openModal("editorModal");
+
+}
+
+
+/* ==================================================
+   MUSIC EDITOR
+================================================== */
+
+function renderMusicEditor(c){
+
+ const box=
+  document.getElementById("musicEditor");
+
+ box.innerHTML="";
+
+ (c.music||[]).forEach((song,index)=>{
+
+  const row=
+   document.createElement("div");
+
+  row.className="song";
+
+  row.innerHTML=`
+
+   ${esc(song.name)}
+
+   <button
+    class="delete"
+    style="float:right"
+    onclick="removeMusic(${index})"
+   >
+    삭제
+   </button>
+
+  `;
+
+  box.appendChild(row);
+
+ });
+
+}
+
+
+/* ==================================================
+   REMOVE GALLERY
+================================================== */
+
+function removeGalleryImage(index){
+
+ if(!editingId)return;
+
+ const c=
+  characters.find(
+   x=>x.id===editingId
+  );
+
+ if(!c)return;
+
+ c.gallery.splice(index,1);
+
+ saveDB();
+
+ editCharacter(editingId);
+
+}
+
+
+/* ==================================================
+   REMOVE MUSIC
+================================================== */
+
+function removeMusic(index){
+
+ if(!editingId)return;
+
+ const c=
+  characters.find(
+   x=>x.id===editingId
+  );
+
+ if(!c)return;
+
+ c.music.splice(index,1);
+
+ saveDB();
+
+ editCharacter(editingId);
+
+}
+
+
+/* ==================================================
+   PLAY MUSIC
+================================================== */
+
+function playMusic(id,index){
+
+ const c=
+  characters.find(
+   x=>x.id===id
+  );
+
+ if(!c || !c.music[index])
+  return;
+
+ const audio=
+  document.getElementById("wikiAudio");
+
+ audio.src=
+  c.music[index].data;
+
+ audio.play();
+
+}
+
+
+/* ==================================================
+   DELETE CHARACTER
+================================================== */
+
+function deleteCharacter(id){
+
+ const c=
+  characters.find(
+   x=>x.id===id
+  );
+
+ if(!c || c.owner!==currentUser)
+  return;
+
+ if(!confirm(
+  "이 캐릭터 문서를 삭제하시겠습니까?"
+ ))
+  return;
+
+ characters=
+  characters.filter(
+   x=>x.id!==id
+  );
+
+ favorites=
+  favorites.filter(
+   x=>x!==id
+  );
+
+ recent=
+  recent.filter(
+   x=>x!==id
+  );
+
+ saveDB();
+
+ home();
+
+ updateStatistics();
+
+}
+
+
+/* ==================================================
+   FAVORITE
+================================================== */
+
+function toggleFavorite(id){
+
+ if(favorites.includes(id)){
+
+  favorites=
+   favorites.filter(
+    x=>x!==id
+   );
+
+ }else{
+
+  favorites.push(id);
+
+ }
+
+ saveDB();
+
+ openCharacter(id);
+
+}
+
+
+/* ==================================================
+   FAVORITES
+================================================== */
+
+function showFavorites(){
+
+ const list=
+  characters.filter(
+   c=>favorites.includes(c.id)
+  );
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    ★ 즐겨찾기
+   </h1>
+
+   <div
+    class="character-list"
+    id="favoriteList"
+   ></div>
+
+  </div>
+
+ `;
+
+ renderCards(
+  document.getElementById("favoriteList"),
+  list
+ );
+
+}
+
+
+/* ==================================================
+   RECENT
+================================================== */
+
+function showRecent(){
+
+ const list=
+  recent
+  .map(id=>
+   characters.find(
+    c=>c.id===id
+   )
+  )
+  .filter(Boolean);
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    최근 본 문서
+   </h1>
+
+   <div
+    class="character-list"
+    id="recentList"
+   ></div>
+
+  </div>
+
+ `;
+
+ renderCards(
+  document.getElementById("recentList"),
+  list
+ );
+
+}
+
+
+/* ==================================================
+   LIST
+================================================== */
+
+function showCharacters(){
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    캐릭터 목록
+   </h1>
+
+   <div
+    class="character-list"
+    id="allList"
+   ></div>
+
+  </div>
+
+ `;
+
+ renderCards(
+  document.getElementById("allList"),
+  characters
+ );
+
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+function searchCharacter(){
+
+ const q=
+  document.getElementById("searchInput")
+  .value
+  .trim()
+  .toLowerCase();
+
+ if(!q){
+
+  home();
+  return;
+
+ }
+
+ const results=
+  characters.filter(
+   c=>
+    c.name
+    .toLowerCase()
+    .includes(q)
+  );
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    검색 결과
+   </h1>
+
+   <p style="color:#888">
+    "${esc(q)}"
+   </p>
+
+   <div
+    class="character-list"
+    id="searchList"
+   ></div>
+
+  </div>
+
+ `;
+
+ renderCards(
+  document.getElementById("searchList"),
+  results
+ );
+
+}
+
+
+/* ==================================================
+   MY PAGE
+================================================== */
+
+function myPage(){
+
+ if(!currentUser)return;
+
+ const mine=
+  characters.filter(
+   c=>c.owner===currentUser
+  );
+
+ document.getElementById("content").innerHTML=`
+
+  <div class="article">
+
+   <h1 class="article-title">
+    ${esc(currentUser)}님의 홈
+   </h1>
+
+   <p style="color:#888">
+    내가 만든 캐릭터
+   </p>
+
+   <div
+    class="character-list"
+    id="myList"
+   ></div>
+
+  </div>
+
+ `;
+
+ renderCards(
+  document.getElementById("myList"),
+  mine
+ );
+
+}
+
+
+/* ==================================================
+   IMAGE VIEW
+================================================== */
+
+function viewImage(src){
+
+ const win=
+  window.open("");
+
+ win.document.write(`
+  <html>
+  <body style="
+   margin:0;
+   background:#000;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+  ">
+   <img
+    src="${src}"
+    style="
+     max-width:100%;
+     max-height:100vh
+    "
+   >
+  </body>
+  </html>
+ `);
+
+}
+
+
+/* ==================================================
+   COPY URL
+================================================== */
+
+function copyURL(){
+
+ navigator.clipboard
+  .writeText(
+   window.location.href
+  );
+
+ alert("문서 주소가 복사되었습니다.");
+
+}
+
+
+/* ==================================================
+   STATISTICS
+================================================== */
+
+function updateStatistics(){
+
+ document.getElementById("statistics")
+  .textContent=
+  `캐릭터 문서 ${characters.length}개`;
+
+}
+
+
+/* ==================================================
+   ESCAPE
+================================================== */
+
+function esc(value){
+
+ return String(value??"")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==================================================
+   URL
+================================================== */
+
+function loadURL(){
+
+ const params=
+  new URLSearchParams(
+   location.search
+  );
+
+ const id=
+  params.get("post");
+
+ if(id){
+
+  const c=
+   characters.find(
+    x=>x.id===id
+   );
+
+  if(c){
+
+   renderArticle(c);
+   return;
+
+  }
+
+ }
+
+ home();
+
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+updateUser();
+
+updateStatistics();
+
+loadURL();
+
+</script>
+
+</body>
+</html>
+```
